@@ -240,7 +240,7 @@
 
        // stop.addEventListener('click', () => {
            // recognition.stop();
-
+          
         //})
         print.addEventListener('click',()=>{
             
@@ -253,30 +253,51 @@
                   formated +=`<h5>${e.textContent}</h5>`;
                   
             })
-            
-            console.log(formated);
+    
+     
+    
+          
             let totPrint = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .margin{
-            margin:10px;
+        .margin-center {
+
             margin-top: 50px;
+            text-align: center;
+        }
+
+        .margin {
+            margin: 50px;
+            margin-top: 50px;
+
         }
     </style>
 </head>
 
 <body>
-    
-    <div class="margin">
-        ${formated}
-        
+
+    <div class="margin-center">
+        <h1>Mängelbericht</h1>
+
+
     </div>
+    <div class="margin">
+        <h2>
+           ${formated}
+        </h2>
+        <button class="print" id="icon" onclick="event.target.parentNode.remove();window.print()">
+            <i class=" fa fa-print"></i>
+
+        </button>
+    </div>
+    
 </body>
 
 </html> `;

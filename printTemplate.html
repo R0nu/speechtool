@@ -3,26 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .margin{
-            margin:10px;
+        .margin-center {
+
             margin-top: 50px;
+            text-align: center;
+        }
+
+        .margin {
+            margin: 50px;
+            margin-top: 50px;
+
         }
     </style>
 </head>
 
 <body>
-    
-    <div class="margin">
-        <h2>test text</h2>
-        <h2>test text</h2>
-        <h2>test text</h2>
-        <h2>test text</h2>
-        <h2>test text</h2>
+
+    <div class="margin-center">
+        <h1>Mängelbericht</h1>
+
+
     </div>
+    <div class="margin">
+        <h2>
+            test text
+        </h2>
+        <button class="print" id="icon" onclick=" dell();window.print()">
+            <i class=" fa fa-print"></i>
+
+        </button>
+    </div>
+    <script>function dell(){
+        event.target.parentNode.remove();
+    }
+    </script>
 </body>
 
 </html>
