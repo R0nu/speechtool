@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karma:wght@300&display=swap" rel="stylesheet">
+    <title>VoiceApp</title>
+    <style>
+        html {
+            background-color:#eeeeee;
+            font-family: 'Karma', serif;
+        }
+
+        .buttons {
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            height: 30%;
+
+        }
+
+
+        #icon {
+            height: 20vh;
+            width: 20vh;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 90px;
+            font-size: 12vh;
+            text-align: center;
+
+            background: #51abff;
+            color: #fafafa;
+            border: 2px dashed #fafafa;
+            box-shadow: 0px 0px 5px 5px #40ddd5;
+        }
+
+        #icon:active {
+            cursor: pointer;
+
+            background: #f7f6fa;
+            color: #4dfff0;
+            border: 2px dashed #4dffd8;
+            box-shadow: 0px 0px 5px 5px #fafafa;
+        }
+
+        .android-icon {
+            padding-top: 30px;
+        }
+
+        .label {
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        .delete {
+
+            float: right;
+            height: 7vh;
+            width: 7vh;
+            margin: auto;
+
+            border-radius: 90px;
+            font-size: 5vh;
+            text-align: center;
+
+            background: #ff5151;
+            color: #080808;
+            border: 2px dashed #eb0505;
+            box-shadow: 0px 0px 5px 5px #f70000;
+
+
+        }
+
+        .notes {
+
+             
+            width: 100%;
+
+        }
+
+        .resul {
+
+
+
+            width: 100%;
+
+
+
+        }
+
+        td {
+
+            border-bottom: 1px solid rgb(145, 141, 141);
+        }
+
+        .scrool {
+
+            height: 60vh;
+            overflow-y: scroll
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="scrool">
+        <table class="resul">
+           <tr>
+            <td>
+                <h1 class="notes">works now </h1>
+            </td>
+            <td class = "right"><button class="delete"><i class="fa fa-trash "></i></button></td>
+        </tr>
+        <tr>
+            <td>
+                <h1 class="notes">works now </h1>
+            </td>
+            <td class = "right"><button class="delete"><i class="fa fa-trash "></i></button></td>
+        </tr>
+        <tr>
+            <td>
+                <h1 class="notes">works now </h1>
+            </td>
+            <td class = "right"><button class="delete"><i class="fa fa-trash "></i></button></td>
+        </tr>
+        <tr>
+            <td>
+                <h1 class="notes">works now </h1>
+            </td>
+            <td class = "right"><button class="delete"><i class="fa fa-trash "></i></button></td>
+        </tr>
+        
+        
+        
+
+        </table>
+    </div>
+
+    <div class="buttons">
+        <button class="start" id="icon">
+            <i class=" fa fa-microphone"></i>
+        </button>
+      <!--  <button class="stop" id="icon">
+            <i class=" fa fa-stop"></i>-->
+
+        </button>
+        <button class="print" id="icon">
+            <i class=" fa fa-print"></i>
+
+        </button>
+    </div>
+    <script>
+        let resul = document.querySelector('.resul');
+        let start = document.querySelector('.start');
+        let stop = document.querySelector('.stop');
+        let print = document.querySelector('.print');
+        try {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            recognition.lang = "de";
+            // recognition.lang = 'en-US';
+
+        } catch (e) {
+            console.error(e);
+
+
+        }
+
+          
+
+        start.addEventListener('mousedown', () => {
+           
+            recognition.start();
+            recognition.onstart = function () {
+             //   start.addEventListener('mousedown',()=>{
+               // recognition.stop()});
+                //resul.innerHTML='Voice recognition activated. Try speaking into the microphone.';
+              
+            }
+
+
+
+            recognition.onerror = function (event) {
+                if (event.error == 'no-speech') {
+                    console.log("works");
+                };
+            }
+
+          
+            recognition.onresult = function (event) {
+ 
+                // event is a SpeechRecognitionEvent object.
+                // It holds all the lines we have captured so far. 
+                // We only need the current one.
+                var current = event.resultIndex;
+
+                // Get a transcript of what was said.
+                var transcript = event.results[current][0].transcript;
+                let result = '';
+                result += ` <td>
+                    <h1 class="notes">${transcript} </h1>
+                </td>
+                <td class = "right"><button class="delete"><i class="fa fa-trash "></i></button></td>`
+                const row = document.createElement('tr');
+                row.innerHTML = result;
+               // row.classList.add('');
+                resul.appendChild(row);
+
+                //let scrol = document.querySelector('.scroll')
+                let res =[...document.querySelectorAll('.notes')];
+                //for(x=0;x<res.length;x++){
+                     last = res[res.length-1];
+                //}
+               // console.log(res[x-1].scrollHeight)
+               // scrol.scrollTo(45,500)
+                  last.scrollIntoView();
+               
+                // Add the current transcript to the contents of our Note.
+
+            }
+
+        });
+        resul.addEventListener('click', function (event) {
+
+                  console.log("orks")
+            if (event.target.parentNode.classList == 'delete') {
+                event.target.parentNode.parentNode.parentNode.remove()
+            }
+        })
+        
+        
+
+       // stop.addEventListener('click', () => {
+           // recognition.stop();
+
+        //})
+        print.addEventListener('click',()=>{
+            
+            let newStuff = window.open('', '', '');
+            let toPrint = document.querySelectorAll('.notes')
+            let formated = '';
+            toPrint.forEach((e)=>{
+                //console.log(e);
+                
+                  formated +=`<h5>${e.textContent}</h5>`;
+                  
+            })
+            
+            console.log(formated);
+            let totPrint = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .margin{
+            margin:10px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="margin">
+        ${formated}
+        
+    </div>
+</body>
+
+</html> `;
+
+
+            //console.log(toPrint[0].textContent);
+           newStuff.document.write(totPrint);
+
+        });
+    </script>
+</body>
+
+</html>
